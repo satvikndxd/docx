@@ -1,44 +1,33 @@
-document.getElementById('docForm').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('documentForm');
 
-    const topic = document.getElementById('topic').value;
-    const structure = document.getElementById('structure').value;
-    const custom_structure = document.getElementById('custom_structure').value;
-    const num_pages = document.getElementById('num_pages').value;
+    form.onsubmit = async function(event) {
+        event.preventDefault(); // Prevent default form submission
 
-    // Create a payload to send to the server
-    const payload = {
-        topic,
-        structure,
-        custom_structure,
-        num_pages
-    };
+        const formData = new FormData(this);
 
-    try {
-        const response = await fetch('/generate_document', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+        try {
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData
+            });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            if (!response.ok) {
+                // Handle non-2xx HTTP responses
+                const errorText = await response.text(); // Get error response text
+                throw new Error(`Network response was not ok: ${response.status} - ${errorText}`);
+            }
+
+            // Assuming the response is JSON
+            const data = await response.json();
+            console.log(data); // Handle the data from the response
+
+            // Optionally, update the UI with the response data
+            document.getElementById('result').innerText = 'Document generated successfully!';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error generating document: ' + error.message);
         }
-
-        // Trigger file download
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'generated.docx';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error generating document: ' + error.message);
-    }
+    };
 });
+
