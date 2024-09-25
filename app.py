@@ -2,23 +2,15 @@ import google.generativeai as genai
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, jsonify
 import os
-import logging
-import sys
 
 # Flask app setup
 app = Flask(__name__)
 
-# Configure logging
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
 # API key configuration
 def configure_gemini_api():
-    api_key = os.getenv("GENAI_API_KEY")  # Use environment variable for API key
-    if api_key is None:
-        logging.error("API key is not set. Please set the GENAI_API_KEY environment variable.")
-        raise ValueError("API key is not set.")
+    api_key = os.environ.get("AIzaSyDFlMKZPmXOtia0CbFZm5XyQWbAa1oy7YM")  # Store your API key as an environment variable
     genai.configure(api_key=api_key)
 
 def generate_text(prompt, max_tokens=None):
@@ -33,10 +25,8 @@ def generate_text(prompt, max_tokens=None):
     if response and response._result.candidates:
         generated_text = response._result.candidates[0].content.parts[0].text.strip()
         generated_text = generated_text.replace('*', '')  # Remove asterisks
-        logging.debug(f"Generated text: {generated_text}")  # Log the generated text
         return generated_text
     else:
-        logging.error(f"Unexpected response structure: {response}")
         raise ValueError(f"Unexpected response structure: {response}")
 
 def create_content(topic, structure=None, max_tokens=None):
@@ -59,7 +49,8 @@ def create_content(topic, structure=None, max_tokens=None):
 
     return content
 
-def create_word_document(content, filename='generated.docx'):
+def create_word_document(content):
+    filename = '/tmp/generated.docx'  # Use a temporary directory for serverless functions
     doc = Document()
 
     # Configure document margins
@@ -98,14 +89,16 @@ def create_word_document(content, filename='generated.docx'):
                 run.font.name = 'Arial'
             paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
-    # Save the document and handle exceptions
+    # Save the document
     try:
         doc.save(filename)
-        logging.info(f"Document saved as {filename}.")
     except Exception as e:
-        logging.error(f"An error occurred while saving the document: {e}")
+        print(f"An error occurred while saving the document: {e}")
+    
+    return filename
 
 def apply_formatting(paragraph, text):
+    # Remove all asterisks from the text
     clean_text = text.replace('*', '')
 
     if clean_text.strip().startswith('•'):
@@ -116,37 +109,28 @@ def apply_formatting(paragraph, text):
 
     paragraph.add_run(clean_text)
 
-# Flask Routes
-@app.route('/')
-def index():
-    return render_template('index.html')  # Load the HTML form
-
 @app.route('/generate_document', methods=['POST'])
 def generate_document():
-    try:
-        topic = request.form['topic']
-        structure = request.form['structure']
-        custom_structure = request.form['custom_structure'] if request.form['structure'].lower() == 'yes' else None
-        num_pages = request.form['num_pages']
+    # Get form data
+    data = request.get_json()  # Expecting JSON payload
+    topic = data['topic']
+    structure = data['structure']
+    custom_structure = data['custom_structure'] if structure.lower() == 'yes' else None
+    num_pages = data['num_pages']
 
-        max_tokens = int(num_pages) * 500 if num_pages else None
+    max_tokens = int(num_pages) * 500 if num_pages else None
 
-        logging.debug(f"Received topic: {topic}, structure: {structure}, num_pages: {num_pages}")
+    # Create document content
+    content = create_content(topic, structure=custom_structure, max_tokens=max_tokens)
+    filename = create_word_document(content)
 
-        content = create_content(topic, structure=custom_structure, max_tokens=max_tokens)
-        logging.debug(f"Content generated: {content}")
-
-        create_word_document(content, filename='generated.docx')
-
-        return send_file('generated.docx', as_attachment=True)
-
-    except Exception as e:
-        logging.error(f"Error occurred: {e}", exc_info=True)
-        return "An error occurred while generating the document.", 500
+    # Return the generated document as a downloadable file
+    return jsonify({"message": "Document generated successfully!", "file": filename})
 
 # Main function for Flask
 if __name__ == "__main__":
     configure_gemini_api()  # Initialize the API key
-    app.run(debug=True)
+    app.run()
+
 
 
