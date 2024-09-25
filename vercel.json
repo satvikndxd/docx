@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",  // Change this if your Flask app file has a different name
+      "src": "app.py",
       "use": "@vercel/python"
     }
   ],
@@ -11,5 +11,9 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ]
+  ],
+  "env": {
+    "API_KEY": "AIzaSyDFlMKZPmXOtia0CbFZm5XyQWbAa1oy7YM"
+  }
 }
+
