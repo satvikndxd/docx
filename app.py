@@ -4,9 +4,14 @@ from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from flask import Flask, request, render_template, send_file
 import os
+import logging
+import sys
 
 # Flask app setup
 app = Flask(__name__)
+
+# Configure logging
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 # API key is now hardcoded
 def configure_gemini_api():
@@ -26,6 +31,7 @@ def generate_text(prompt, max_tokens=None):
         # Assuming we want the first candidate's content
         generated_text = response._result.candidates[0].content.parts[0].text.strip()
         generated_text = generated_text.replace('*', '')  # Remove asterisks
+        logging.debug(f"Generated text: {generated_text}")  # Log the generated text
         return generated_text
     else:
         raise ValueError(f"Unexpected response structure: {response}")
@@ -93,7 +99,7 @@ def create_word_document(content, filename='generated.docx'):
     try:
         doc.save(filename)
     except Exception as e:
-        print(f"An error occurred while saving the document: {e}")
+        logging.error(f"An error occurred while saving the document: {e}")
 
 def apply_formatting(paragraph, text):
     # Remove all asterisks from the text
@@ -114,23 +120,36 @@ def index():
 
 @app.route('/generate_document', methods=['POST'])
 def generate_document():
-    # Get form data
-    topic = request.form['topic']
-    structure = request.form['structure']
-    custom_structure = request.form['custom_structure'] if request.form['structure'].lower() == 'yes' else None
-    num_pages = request.form['num_pages']
+    try:
+        # Get form data
+        topic = request.form['topic']
+        structure = request.form['structure']
+        custom_structure = request.form['custom_structure'] if request.form['structure'].lower() == 'yes' else None
+        num_pages = request.form['num_pages']
 
-    max_tokens = int(num_pages) * 500 if num_pages else None
+        max_tokens = int(num_pages) * 500 if num_pages else None
 
-    # Create document content using your existing logic
-    content = create_content(topic, structure=custom_structure, max_tokens=max_tokens)
-    create_word_document(content, filename='generated.docx')
+        # Log the incoming data
+        logging.debug(f"Received topic: {topic}")
 
-    # Return the generated document as a downloadable file
-    return send_file('generated.docx', as_attachment=True)
+        # Create document content using your existing logic
+        content = create_content(topic, structure=custom_structure, max_tokens=max_tokens)
+        
+        # Log content generated
+        logging.debug(f"Content generated: {content}")
+
+        create_word_document(content, filename='generated.docx')
+
+        # Return the generated document as a downloadable file
+        return send_file('generated.docx', as_attachment=True)
+
+    except Exception as e:
+        logging.error(f"Error occurred: {e}", exc_info=True)
+        return "An error occurred while generating the document.", 500
 
 # Main function for Flask
 if __name__ == "__main__":
     configure_gemini_api()  # Initialize the API key
     app.run(debug=True)
+
 
