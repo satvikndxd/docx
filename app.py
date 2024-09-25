@@ -13,9 +13,12 @@ app = Flask(__name__)
 # Configure logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-# API key is now hardcoded
+# API key configuration
 def configure_gemini_api():
-    api_key = "AIzaSyDFlMKZPmXOtia0CbFZm5XyQWbAa1oy7YM"
+    api_key = os.getenv("GENAI_API_KEY")  # Use environment variable for API key
+    if api_key is None:
+        logging.error("API key is not set. Please set the GENAI_API_KEY environment variable.")
+        raise ValueError("API key is not set.")
     genai.configure(api_key=api_key)
 
 def generate_text(prompt, max_tokens=None):
@@ -28,12 +31,12 @@ def generate_text(prompt, max_tokens=None):
 
     # Accessing the generated text from the response
     if response and response._result.candidates:
-        # Assuming we want the first candidate's content
         generated_text = response._result.candidates[0].content.parts[0].text.strip()
         generated_text = generated_text.replace('*', '')  # Remove asterisks
         logging.debug(f"Generated text: {generated_text}")  # Log the generated text
         return generated_text
     else:
+        logging.error(f"Unexpected response structure: {response}")
         raise ValueError(f"Unexpected response structure: {response}")
 
 def create_content(topic, structure=None, max_tokens=None):
@@ -98,11 +101,11 @@ def create_word_document(content, filename='generated.docx'):
     # Save the document and handle exceptions
     try:
         doc.save(filename)
+        logging.info(f"Document saved as {filename}.")
     except Exception as e:
         logging.error(f"An error occurred while saving the document: {e}")
 
 def apply_formatting(paragraph, text):
-    # Remove all asterisks from the text
     clean_text = text.replace('*', '')
 
     if clean_text.strip().startswith('•'):
@@ -121,7 +124,6 @@ def index():
 @app.route('/generate_document', methods=['POST'])
 def generate_document():
     try:
-        # Get form data
         topic = request.form['topic']
         structure = request.form['structure']
         custom_structure = request.form['custom_structure'] if request.form['structure'].lower() == 'yes' else None
@@ -129,18 +131,13 @@ def generate_document():
 
         max_tokens = int(num_pages) * 500 if num_pages else None
 
-        # Log the incoming data
-        logging.debug(f"Received topic: {topic}")
+        logging.debug(f"Received topic: {topic}, structure: {structure}, num_pages: {num_pages}")
 
-        # Create document content using your existing logic
         content = create_content(topic, structure=custom_structure, max_tokens=max_tokens)
-        
-        # Log content generated
         logging.debug(f"Content generated: {content}")
 
         create_word_document(content, filename='generated.docx')
 
-        # Return the generated document as a downloadable file
         return send_file('generated.docx', as_attachment=True)
 
     except Exception as e:
