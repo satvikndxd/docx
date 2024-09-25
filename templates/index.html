@@ -1,0 +1,249 @@
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nostalgic .docx Document Creator</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Courier New', monospace;
+        background-color: #f0ebe0;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f0ebe0"/><path d="M0 0L100 100M100 0L0 100" stroke="%23e0d8c0" stroke-width="0.5"/></svg>');
+        background-repeat: repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        width: 90%;
+        max-width: 800px;
+        background-color: rgba(253, 246, 227, 0.9);
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><rect width="150" height="150" fill="%23f5f0e5"/><path d="M0 0L150 150M150 0L0 150" stroke="%23e8e0cc" stroke-width="1"/></svg>');
+        background-repeat: repeat;
+        opacity: 0.5;
+        z-index: -1;
+      }
+      h1 {
+        text-align: center;
+        color: #b58900;
+        font-size: 36px;
+        margin-bottom: 40px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+      input, select, textarea, button {
+        font-family: inherit;
+        font-size: 18px;
+        padding: 15px;
+        border: 2px solid #93a1a1;
+        border-radius: 8px;
+        background-color: rgba(253, 246, 227, 0.8);
+        transition: all 0.3s ease;
+      }
+      input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #268bd2;
+        box-shadow: 0 0 10px rgba(38, 139, 210, 0.5);
+      }
+      button {
+        cursor: pointer;
+        background-color: #859900;
+        color: #fdf6e3;
+        border: none;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      button:hover {
+        background-color: #748b00;
+        transform: scale(1.05);
+      }
+      .owl-image {
+        width: 160px;
+        height: 160px;
+        background-color: #dc322f;
+        border-radius: 50%;
+        margin: 0 auto 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+      .owl-image svg {
+        width: 120px;
+        height: 120px;
+        fill: #fdf6e3;
+      }
+      .butterfly {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        pointer-events: none;
+      }
+      .decorative-corner {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M0 60 L60 60 L60 0" fill="none" stroke="%23b58900" stroke-width="3"/></svg>');
+        background-repeat: no-repeat;
+      }
+      .top-left { top: 20px; left: 20px; transform: rotate(0deg); }
+      .top-right { top: 20px; right: 20px; transform: rotate(90deg); }
+      .bottom-left { bottom: 20px; left: 20px; transform: rotate(270deg); }
+      .bottom-right { bottom: 20px; right: 20px; transform: rotate(180deg); }
+      .retro-images {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+      }
+      .retro-image {
+        width: 120px;
+        height: 120px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .reviews {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+      }
+      .review {
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+      .reviewer {
+        font-weight: bold;
+        text-align: right;
+      }
+    </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="decorative-corner top-left"></div>
+        <div class="decorative-corner top-right"></div>
+        <div class="decorative-corner bottom-left"></div>
+        <div class="decorative-corner bottom-right"></div>
+        <div class="owl-image">
+          <svg viewBox="0 0 24 24">
+            <path d="M12,16C12.56,16.84 13.31,17.53 14.2,18L12,20.2L9.8,18C10.69,17.53 11.45,16.84 12,16M17,11.2A2,2 0 0,0 15,13.2A2,2 0 0,0 17,15.2A2,2 0 0,0 19,13.2A2,2 0 0,0 17,11.2M7,11.2A2,2 0 0,0 5,13.2A2,2 0 0,0 7,15.2A2,2 0 0,0 9,13.2A2,2 0 0,0 7,11.2M17,8.7A4,4 0 0,1 21,12.7A4,4 0 0,1 17,16.7A4,4 0 0,1 13,12.7A4,4 0 0,1 17,8.7M7,8.7A4,4 0 0,1 11,12.7A4,4 0 0,1 7,16.7A4,4 0 0,1 3,12.7A4,4 0 0,1 7,8.7M2.24,1C4,4.7 2.73,7.46 1.55,10.2C1.19,11 1,11.9 1,12.7A6,6 0 0,0 7,18.7C7.21,18.69 7.42,18.68 7.63,18.65L10.59,21.61L12,23L13.41,21.61L16.37,18.65C16.58,18.68 16.79,18.69 17,18.7A6,6 0 0,0 23,12.7C23,11.9 22.81,11 22.45,10.2C21.27,7.46 20,4.7 21.76,1C19.12,3.06 17.76,5.94 17.4,7.24C17,6.26 16.31,5.42 15.41,4.8C14.97,4.5 14.5,4.23 14,4C13.17,3.63 12.25,3.43 11.29,3.43C10.33,3.43 9.41,3.63 8.59,4C8.08,4.23 7.62,4.5 7.18,4.8C6.28,5.42 5.59,6.26 5.19,7.24C4.83,5.94 3.47,3.06 0.84,1Z" />
+          </svg>
+        </div>
+        <h1>Document Wizard</h1>
+        <div class="retro-images">
+          <div class="retro-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23d4c7b0\'/><rect x=\'10\' y=\'20\' width=\'80\' height=\'60\' fill=\'%23a69076\'/><rect x=\'15\' y=\'25\' width=\'70\' height=\'50\' fill=\'%23f2e8d5\'/><circle cx=\'50\' cy=\'50\' r=\'15\' fill=\'%23555\'/><rect x=\'20\' y=\'80\' width=\'60\' height=\'5\' fill=\'%23555\'/></svg>');"></div>
+          <div class="retro-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23e6d5b8\'/><rect x=\'10\' y=\'30\' width=\'80\' height=\'50\' fill=\'%23b89b6d\'/><rect x=\'15\' y=\'35\' width=\'70\' height=\'40\' fill=\'%23f2e8d5\'/><circle cx=\'30\' cy=\'55\' r=\'10\' fill=\'%23555\'/><circle cx=\'70\' cy=\'55\' r=\'10\' fill=\'%23555\'/><rect x=\'25\' y=\'20\' width=\'50\' height=\'5\' fill=\'%23555\'/></svg>');"></div>
+        </div>
+        <form id="documentForm" action="/generate_document" method="post">
+          <input type="text" id="topic" name="topic" placeholder="Enter document topic" required>
+          <select id="structure" name="structure" required>
+            <option value="no">Use default structure</option>
+            <option value="yes">Provide custom structure</option>
+          </select>
+          <textarea id="custom_structure" name="custom_structure" placeholder="Enter custom structure (optional)" style="display:none; resize: vertical; min-height: 150px;"></textarea>
+          <input type="number" id="num_pages" name="num_pages" placeholder="Approximate number of pages" min="1" required>
+          <button type="submit">Download Magical Document</button>
+        </form>
+        <div class="reviews">
+          <div class="review">
+            "This Document Wizard is a game-changer! It's like having a personal assistant who understands exactly what I need. Absolutely brilliant!"
+            <div class="reviewer">- Yanamala Uhas Reddy, SRM Institute of Science and Technology</div>
+          </div>
+          <div class="review">
+            "I've never seen a tool so intuitive and efficient. It's revolutionized the way I approach my academic writing tasks!"
+            <div class="reviewer">- Anurup Das, SRM Institute of Science and Technology</div>
+          </div>
+          <div class="review">
+            "From complex research papers to quick reports, this wizard handles it all with ease. It's become an indispensable part of my academic toolkit."
+            <div class="reviewer">- Jishnu Nandkumar, SRM Institute of Science and Technology</div>
+          </div>
+        </div>
+      </div>
+    
+      <svg class="butterfly" id="butterfly1" viewBox="0 0 24 24">
+        <path d="M12.37,2.05C14.15,2.05 15.62,3.48 15.62,5.21C15.62,6.94 14.15,8.37 12.37,8.37C10.59,8.37 9.12,6.94 9.12,5.21C9.12,3.48 10.59,2.05 12.37,2.05M12.37,3.55C11.44,3.55 10.62,4.34 10.62,5.21C10.62,6.08 11.44,6.87 12.37,6.87C13.3,6.87 14.12,6.08 14.12,5.21C14.12,4.34 13.3,3.55 12.37,3.55M12,9C13.38,9 14.5,9.45 15.37,10.11L12,13.5L8.63,10.11C9.5,9.45 10.62,9 12,9M7.32,11.39L11.32,15.39C11.71,15.78 12.29,15.78 12.68,15.39L16.68,11.39C17.82,12.21 18.63,13.26 18.63,15C18.63,17.76 15.63,20 12,20C8.37,20 5.37,17.76 5.37,15C5.37,13.26 6.18,12.21 7.32,11.39Z" />
+      </svg>
+      <svg class="butterfly" id="butterfly2" viewBox="0 0 24 24">
+        <path d="M12.37,2.05C14.15,2.05 15.62,3.48 15.62,5.21C15.62,6.94 14.15,8.37 12.37,8.37C10.59,8.37 9.12,6.94 9.12,5.21C9.12,3.48 10.59,2.05 12.37,2.05M12.37,3.55C11.44,3.55 10.62,4.34 10.62,5.21C10.62,6.08 11.44,6.87 12.37,6.87C13.3,6.87 14.12,6.08 14.12,5.21C14.12,4.34 13.3,3.55 12.37,3.55M12,9C13.38,9 14.5,9.45 15.37,10.11L12,13.5L8.63,10.11C9.5,9.45 10.62,9 12,9M7.32,11.39L11.32,15.39C11.71,15.78 12.29,15.78 12.68,15.39L16.68,11.39C17.82,12.21 18.63,13.26 18.63,15C18.63,17.76 15.63,20 12,20C8.37,20 5.37,17.76 5.37,15C5.37,13.26 6.18,12.21 7.32,11.39Z" />
+      </svg>
+      <svg class="butterfly" id="butterfly3" viewBox="0 0 24 24">
+        <path d="M12.37,2.05C14.15,2.05 15.62,3.48 15.62,5.21C15.62,6.94 14.15,8.37 12.37,8.37C10.59,8.37 9.12,6.94 9.12,5.21C9.12,3.48 10.59,2.05 12.37,2.05M12.37,3.55C11.44,3.55 10.62,4.34 10.62,5.21C10.62,6.08 11.44,6.87 12.37,6.87C13.3,6.87 14.12,6.08 14.12,5.21C14.12,4.34 13.3,3.55 12.37,3.55M12,9C13.38,9 14.5,9.45 15.37,10.11L12,13.5L8.63,10.11C9.5,9.45 10.62,9 12,9M7.32,11.39L11.32,15.39C11.71,15.78 12.29,15.78 12.68,15.39L16.68,11.39C17.82,12.21 18.63,13.26 18.63,15C18.63,17.76 15.63,20 12,20C8.37,20 5.37,17.76 5.37,15C5.37,13.26 6.18,12.21 7.32,11.39Z" />
+      </svg>
+    
+      <script>
+        document.getElementById('structure').addEventListener('change', function() {
+          var customStructure = document.getElementById('custom_structure');
+          if (this.value === 'yes') {
+            customStructure.style.display = 'block';
+            customStructure.required = true;
+          } else {
+            customStructure.style.display = 'none';
+            customStructure.required = false;
+          }
+        });
+    
+        document.getElementById('documentForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          
+          fetch('/generate_document', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.blob())
+          .then(blob => {
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'generated.docx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while generating the document. Please try again.');
+          });
+        });
+    
+        const butterflies = document.querySelectorAll('.butterfly');
+        butterflies.forEach(butterfly => {
+          animateButterfly(butterfly);
+        });
+    
+        function animateButterfly(butterfly) {
+          const duration = 15000 + Math.random() * 10000;
+          const keyframes = [
+            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
+            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
+            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` }
+          ];
+          
+          butterfly.animate(keyframes, {
+            duration: duration,
+            iterations: Infinity,
+            easing: 'ease-in-out'
+          });
+        }
+      </script>
+    </body></html>
+
