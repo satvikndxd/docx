@@ -189,60 +189,81 @@
         <path d="M12.37,2.05C14.15,2.05 15.62,3.48 15.62,5.21C15.62,6.94 14.15,8.37 12.37,8.37C10.59,8.37 9.12,6.94 9.12,5.21C9.12,3.48 10.59,2.05 12.37,2.05M12.37,3.55C11.44,3.55 10.62,4.34 10.62,5.21C10.62,6.08 11.44,6.87 12.37,6.87C13.3,6.87 14.12,6.08 14.12,5.21C14.12,4.34 13.3,3.55 12.37,3.55M12,9C13.38,9 14.5,9.45 15.37,10.11L12,13.5L8.63,10.11C9.5,9.45 10.62,9 12,9M7.32,11.39L11.32,15.39C11.71,15.78 12.29,15.78 12.68,15.39L16.68,11.39C17.82,12.21 18.63,13.26 18.63,15C18.63,17.76 15.63,20 12,20C8.37,20 5.37,17.76 5.37,15C5.37,13.26 6.18,12.21 7.32,11.39Z" />
       </svg>
     
-      <script>
-        document.getElementById('structure').addEventListener('change', function() {
-          var customStructure = document.getElementById('custom_structure');
-          if (this.value === 'yes') {
-            customStructure.style.display = 'block';
-            customStructure.required = true;
-          } else {
-            customStructure.style.display = 'none';
-            customStructure.required = false;
-          }
-        });
+
+<script>
+  document.getElementById('structure').addEventListener('change', function() {
+    var customStructure = document.getElementById('custom_structure');
+    if (this.value === 'yes') {
+      customStructure.style.display = 'block';
+      customStructure.required = true;
+    } else {
+      customStructure.style.display = 'none';
+      customStructure.required = false;
+    }
+  });
+
+  document.getElementById('documentForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const topic = document.getElementById('topic').value;
+    const structure = document.getElementById('structure').value;
+    const custom_structure = document.getElementById('custom_structure').value;
+    const num_pages = document.getElementById('num_pages').value;
+
+    const payload = {
+      topic,
+      structure,
+      custom_structure,
+      num_pages
+    };
+
+    try {
+      const response = await fetch('/generate_document', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'generated.docx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error generating document: ' + error.message);
+    }
+  });
+
+  const butterflies = document.querySelectorAll('.butterfly');
+  butterflies.forEach(butterfly => {
+    animateButterfly(butterfly);
+  });
+
+  function animateButterfly(butterfly) {
+    const duration = 15000 + Math.random() * 10000;
+    const keyframes = [
+      { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
+      { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
+      { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` }
+    ];
     
-        document.getElementById('documentForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          var formData = new FormData(this);
-          
-          fetch('/generate_document', {
-            method: 'POST',
-            body: formData
-          })
-          .then(response => response.blob())
-          .then(blob => {
-            var url = window.URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'generated.docx';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while generating the document. Please try again.');
-          });
-        });
-    
-        const butterflies = document.querySelectorAll('.butterfly');
-        butterflies.forEach(butterfly => {
-          animateButterfly(butterfly);
-        });
-    
-        function animateButterfly(butterfly) {
-          const duration = 15000 + Math.random() * 10000;
-          const keyframes = [
-            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
-            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` },
-            { transform: `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh) rotate(${Math.random() * 360}deg)` }
-          ];
-          
-          butterfly.animate(keyframes, {
-            duration: duration,
-            iterations: Infinity,
-            easing: 'ease-in-out'
-          });
-        }
-      </script>
-    </body></html>
+    butterfly.animate(keyframes, {
+      duration: duration,
+      iterations: Infinity,
+      easing: 'ease-in-out'
+    });
+  }
+</script>
+</body>
+</html>
