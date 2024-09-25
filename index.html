@@ -153,16 +153,16 @@
           <div class="retro-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23d4c7b0\'/><rect x=\'10\' y=\'20\' width=\'80\' height=\'60\' fill=\'%23a69076\'/><rect x=\'15\' y=\'25\' width=\'70\' height=\'50\' fill=\'%23f2e8d5\'/><circle cx=\'50\' cy=\'50\' r=\'15\' fill=\'%23555\'/><rect x=\'20\' y=\'80\' width=\'60\' height=\'5\' fill=\'%23555\'/></svg>');"></div>
           <div class="retro-image" style="background-image: url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23e6d5b8\'/><rect x=\'10\' y=\'30\' width=\'80\' height=\'50\' fill=\'%23b89b6d\'/><rect x=\'15\' y=\'35\' width=\'70\' height=\'40\' fill=\'%23f2e8d5\'/><circle cx=\'30\' cy=\'55\' r=\'10\' fill=\'%23555\'/><circle cx=\'70\' cy=\'55\' r=\'10\' fill=\'%23555\'/><rect x=\'25\' y=\'20\' width=\'50\' height=\'5\' fill=\'%23555\'/></svg>');"></div>
         </div>
-        <form id="documentForm" action="/generate_document" method="post">
-          <input type="text" id="topic" name="topic" placeholder="Enter document topic" required>
-          <select id="structure" name="structure" required>
-            <option value="no">Use default structure</option>
-            <option value="yes">Provide custom structure</option>
-          </select>
-          <textarea id="custom_structure" name="custom_structure" placeholder="Enter custom structure (optional)" style="display:none; resize: vertical; min-height: 150px;"></textarea>
-          <input type="number" id="num_pages" name="num_pages" placeholder="Approximate number of pages" min="1" required>
-          <button type="submit">Download Magical Document</button>
-        </form>
+        <form id="documentForm">
+  <input type="text" id="topic" name="topic" placeholder="Enter document topic" required>
+  <select id="structure" name="structure" required>
+    <option value="no">Use default structure</option>
+    <option value="yes">Provide custom structure</option>
+  </select>
+  <textarea id="custom_structure" name="custom_structure" placeholder="Enter custom structure (optional)" style="display:none; resize: vertical; min-height: 150px;"></textarea>
+  <input type="number" id="num_pages" name="num_pages" placeholder="Approximate number of pages" min="1" required>
+  <button type="submit">Download Magical Document</button>
+</form>
         <div class="reviews">
           <div class="review">
             "This Document Wizard is a game-changer! It's like having a personal assistant who understands exactly what I need. Absolutely brilliant!"
@@ -202,7 +202,7 @@
     }
   });
 
-  document.getElementById('documentForm').addEventListener('submit', async function (event) {
+ document.getElementById('documentForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const topic = document.getElementById('topic').value;
@@ -229,8 +229,7 @@
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
       }
-
-      const blob = await response.blob();
+        const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.style.display = 'none';
