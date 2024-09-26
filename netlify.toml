@@ -1,8 +1,0 @@
-[build]
-  functions = "functions"
-
-[[redirects]]
-  from = "/generate_document"
-  to = "/.netlify/functions/flask_app/generate_document"
-  status = 200
-  force = true
