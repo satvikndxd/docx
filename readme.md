@@ -8,10 +8,10 @@
     <em><code>❯ Generate comprehensive Word documents on any topic using AI</code></em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/yourusername/ai-document-generator?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/yourusername/ai-document-generator?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/yourusername/ai-document-generator?style=flat&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/yourusername/ai-document-generator?style=flat&color=0080ff" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/satvikndxd/docx?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/satvikndxd/docx?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/satvikndxd/docx?style=flat&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/satvikndxd/docx?style=flat&color=0080ff" alt="repo-language-count">
 </p>
 <p align="center">
 		<em>Built with the tools and technologies:</em>
@@ -61,14 +61,14 @@ This Flask-based web application leverages Google's Generative AI (Gemini) to cr
 ## Repository Structure
 
 ```sh
-└── ai-document-generator/
+└── docx/
     ├── app.py
     ├── templates/
     │   └── index.html
-    ├── generated.docx
-    ├── requirements.txt
-    ├── README.md
-    └── LICENSE
+    ├── .DS_Store
+    ├── index.html
+    ├── readme.md
+    └── requirements.txt
 ```
 
 ---
@@ -79,10 +79,10 @@ This Flask-based web application leverages Google's Generative AI (Gemini) to cr
 
 | File | Summary |
 | --- | --- |
-| [app.py](https://github.com/yourusername/ai-document-generator/blob/main/app.py) | Main Flask application file containing all the logic for document generation |
-| [requirements.txt](https://github.com/yourusername/ai-document-generator/blob/main/requirements.txt) | List of Python package dependencies |
-| [README.md](https://github.com/yourusername/ai-document-generator/blob/main/README.md) | Project documentation (this file) |
-| [LICENSE](https://github.com/yourusername/ai-document-generator/blob/main/LICENSE) | MIT License file |
+| [app.py](https://github.com/satvikndxd/docx/blob/main/app.py) | Main Flask application file containing all the logic for document generation |
+| [requirements.txt](https://github.com/satvikndxd/docx/blob/main/requirements.txt) | List of Python package dependencies |
+| [readme.md](https://github.com/satvikndxd/docx/blob/main/readme.md) | Project documentation (this file) |
+| [index.html](https://github.com/satvikndxd/docx/blob/main/index.html) | Main HTML file for the web interface |
 
 </details>
 
@@ -90,7 +90,7 @@ This Flask-based web application leverages Google's Generative AI (Gemini) to cr
 
 | File | Summary |
 | --- | --- |
-| [index.html](https://github.com/yourusername/ai-document-generator/blob/main/templates/index.html) | HTML template for the web interface |
+| [index.html](https://github.com/satvikndxd/docx/blob/main/templates/index.html) | HTML template for the web interface |
 
 </details>
 
@@ -105,14 +105,14 @@ This Flask-based web application leverages Google's Generative AI (Gemini) to cr
 
 ### Installation
 
-1. Clone the ai-document-generator repository:
+1. Clone the docx repository:
 ```sh
-❯ git clone https://github.com/yourusername/ai-document-generator
+❯ git clone https://github.com/satvikndxd/docx
 ```
 
 2. Navigate to the project directory:
 ```sh
-❯ cd ai-document-generator
+❯ cd docx
 ```
 
 3. Install the required dependencies:
@@ -151,9 +151,9 @@ Currently, there are no automated tests for this project. Consider adding tests 
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Report Issues](https://github.com/yourusername/ai-document-generator/issues)**: Submit bugs found or log feature requests for the `ai-document-generator` project.
-- **[Submit Pull Requests](https://github.com/yourusername/ai-document-generator/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/yourusername/ai-document-generator/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/satvikndxd/docx/issues)**: Submit bugs found or log feature requests for the `docx` project.
+- **[Submit Pull Requests](https://github.com/satvikndxd/docx/pulls)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/satvikndxd/docx/discussions)**: Share your insights, provide feedback, or ask questions.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
@@ -161,7 +161,7 @@ Contributions are welcome! Here are several ways you can contribute:
 1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
    ```sh
-   git clone https://github.com/yourusername/ai-document-generator
+   git clone https://github.com/yourusername/docx
    ```
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
    ```sh
@@ -184,7 +184,7 @@ Contributions are welcome! Here are several ways you can contribute:
 
 ## License
 
-This project is protected under the [MIT License](https://choosealicense.com/licenses/mit/). For more details, refer to the [LICENSE](https://github.com/yourusername/ai-document-generator/blob/main/LICENSE) file.
+This project is open source and available under the [MIT License](https://github.com/satvikndxd/docx/blob/main/LICENSE).
 
 ---
 
@@ -194,6 +194,7 @@ This project is protected under the [MIT License](https://choosealicense.com/lic
 - [Flask](https://flask.palletsprojects.com/) for the web framework
 - [python-docx](https://python-docx.readthedocs.io/) for Word document generation
 
+---
 
 ## Future Improvements
 
@@ -212,11 +213,12 @@ This project is protected under the [MIT License](https://choosealicense.com/lic
 
 For any questions, suggestions, or collaborations, please feel free to reach out:
 
-- **Project Maintainer:** Anand Satvik
+- **Project Maintainer:** Satvik Anand
 - **Email:** anandsatvik373@gmail.com
-- **GitHub:** [@yourusername](https://github.com/satvikndxd)
+- **GitHub:** [@satvikndxd](https://github.com/satvikndxd)
 - **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/satvik-anand-19019a283/)
----
-````
 
-This reformatted README.md follows the structure and style of the example you provided. It includes a centered logo (using a placeholder document icon), badges, and a more visually appealing layout. Remember to replace "yourusername" with your actual GitHub username and update any specific details or links as needed.
+
+We appreciate your feedback and contributions to make this project better!
+
+---
