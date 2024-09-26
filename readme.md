@@ -1,27 +1,51 @@
-# AI-Powered Document Generator
+<p align="center">
+  <img src="https://img.icons8.com/color/96/000000/document--v1.png" width="20%" alt="AI-Document-Generator-logo">
+</p>
+<p align="center">
+    <h1 align="center">AI-POWERED DOCUMENT GENERATOR</h1>
+</p>
+<p align="center">
+    <em><code>❯ Generate comprehensive Word documents on any topic using AI</code></em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/license/yourusername/ai-document-generator?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/yourusername/ai-document-generator?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/yourusername/ai-document-generator?style=flat&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/yourusername/ai-document-generator?style=flat&color=0080ff" alt="repo-language-count">
+</p>
+<p align="center">
+		<em>Built with the tools and technologies:</em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
+	<img src="https://img.shields.io/badge/Flask-000000.svg?style=flat&logo=Flask&logoColor=white" alt="Flask">
+	<img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=flat&logo=google-cloud&logoColor=white" alt="Google Cloud">
+</p>
+
+<br>
+
+##### Table of Contents
+- [Overview](#-overview)
+- [Features](#-features)
+- [Repository Structure](#-repository-structure)
+- [Modules](#-modules)
+- [Getting Started](#-getting-started)
+    - [Prerequisites](#-prerequisites)
+    - [Installation](#-installation)
+    - [Usage](#-usage)
+    - [Tests](#-tests)
+- [Project Roadmap](#-project-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+
+---
+
+## Overview
 
 This Flask-based web application leverages Google's Generative AI (Gemini) to create detailed Word documents on any given topic. It offers a user-friendly interface for generating comprehensive, well-structured documents with minimal input.
 
-## Table of Contents
-
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Key Functions](#key-functions)
-- [Customization](#customization)
-- [Error Handling](#error-handling)
-- [API Integration](#api-integration)
-- [Performance Optimization](#performance-optimization)
-- [Security Considerations](#security-considerations)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [Contact](#contact)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
-- [Future Improvements](#future-improvements)
+---
 
 ## Features
 
@@ -32,182 +56,144 @@ This Flask-based web application leverages Google's Generative AI (Gemini) to cr
 - Formatted output with proper headings, bullet points, and styling using python-docx
 - Responsive web interface for easy interaction
 
-## Requirements
+---
+
+## Repository Structure
+
+```sh
+└── ai-document-generator/
+    ├── app.py
+    ├── templates/
+    │   └── index.html
+    ├── generated.docx
+    ├── requirements.txt
+    ├── README.md
+    └── LICENSE
+```
+
+---
+
+## Modules
+
+<details closed><summary>.</summary>
+
+| File | Summary |
+| --- | --- |
+| [app.py](https://github.com/yourusername/ai-document-generator/blob/main/app.py) | Main Flask application file containing all the logic for document generation |
+| [requirements.txt](https://github.com/yourusername/ai-document-generator/blob/main/requirements.txt) | List of Python package dependencies |
+| [README.md](https://github.com/yourusername/ai-document-generator/blob/main/README.md) | Project documentation (this file) |
+| [LICENSE](https://github.com/yourusername/ai-document-generator/blob/main/LICENSE) | MIT License file |
+
+</details>
+
+<details closed><summary>templates</summary>
+
+| File | Summary |
+| --- | --- |
+| [index.html](https://github.com/yourusername/ai-document-generator/blob/main/templates/index.html) | HTML template for the web interface |
+
+</details>
+
+---
+
+## Getting Started
+
+### Prerequisites
 
 - Python 3.7+
-- Flask
-- google-generativeai
-- python-docx
-- concurrent.futures (part of Python's standard library)
+- Google Generative AI API key
 
-## Installation
+### Installation
 
-1. Clone this repository:
-   ```
-   git clone https://github.com/yourusername/ai-document-generator.git
-   cd ai-document-generator
-   ```
+1. Clone the ai-document-generator repository:
+```sh
+❯ git clone https://github.com/yourusername/ai-document-generator
+```
 
-2. Install the required packages:
-   ```
-   pip install -r requirements.txt
-   ```
+2. Navigate to the project directory:
+```sh
+❯ cd ai-document-generator
+```
 
-3. Set up your Google Generative AI API key:
-   - Open `app.py`
-   - Locate the `configure_gemini_api()` function
-   - Replace the placeholder API key with your actual Gemini API key
+3. Install the required dependencies:
+```sh
+❯ pip install -r requirements.txt
+```
 
-## Usage
+4. Set up your Google Generative AI API key in `app.py`
 
-1. Run the Flask application:
-   ```
-   python app.py
-   ```
+### Usage
 
-2. Open a web browser and navigate to `http://localhost:5000`
+To run the project, execute the following command:
 
-3. Fill in the form with the following details:
-   - Topic: The main subject of your document
-   - Structure: Choose between default or custom structure
-   - Custom Structure (optional): If custom structure is selected, provide your own outline
-   - Number of Pages: Approximate desired length of the document
+```sh
+❯ python app.py
+```
 
-4. Click "Generate Document" to create and download your AI-generated Word document.
+Then open a web browser and navigate to `http://localhost:5000`
 
-## Project Structure
+### Tests
 
-- `app.py`: Main Flask application file containing all the logic for document generation
-  - `configure_gemini_api()`: Sets up the Gemini API configuration
-  - `generate_text()`: Generates text using the Gemini AI model
-  - `create_content()`: Creates the document content structure
-  - `create_word_document()`: Formats and saves the generated content as a Word document
-  - `apply_formatting()`: Applies specific formatting to paragraphs in the document
-- `templates/index.html`: HTML template for the web interface
-- `generated.docx`: Output file (generated when a document is created)
-- `requirements.txt`: List of Python package dependencies
-- `README.md`: Project documentation (this file)
-- `LICENSE`: MIT License file
+Currently, there are no automated tests for this project. Consider adding tests in future updates.
 
-## Key Functions
+---
 
-### `generate_text(prompt, max_tokens=None)`
-Generates text using the Gemini AI model based on the given prompt and token limit.
+## Project Roadmap
 
-### `create_content(topic, structure=None, max_tokens=None)`
-Creates the content structure for the document, including generating an outline if not provided.
+- [X] **`Task 1`**: <strike>Implement basic document generation.</strike>
+- [X] **`Task 2`**: <strike>Add customizable document structure.</strike>
+- [ ] **`Task 3`**: Implement user authentication.
+- [ ] **`Task 4`**: Add support for multiple document formats.
 
-### `create_word_document(content, filename='generated.docx')`
-Formats the generated content into a properly structured Word document with appropriate styling.
-
-### `apply_formatting(paragraph, text)`
-Applies specific formatting to paragraphs in the document, including bullet points and font styles.
-
-## Customization
-
-You can customize the document appearance by modifying the `create_word_document()` function in `app.py`. This includes changing fonts, sizes, colors, and other formatting options.
-
-### Styling Options
-- Font: Currently set to Arial
-- Font Size: 24pt for headings, 18pt for body text
-- Colors: Black for all text (can be customized using RGBColor)
-- Alignment: Left-aligned for all text
-- Margins: 1 inch on all sides
-
-To modify these settings, adjust the corresponding values in the `create_word_document()` function.
-
-## Error Handling
-
-The application includes basic error handling for API responses and file saving operations. For production use, consider implementing more robust error handling and user feedback mechanisms.
-
-### Current Error Handling
-- API response validation in `generate_text()`
-- Exception catching for document saving in `create_word_document()`
-
-### Suggested Improvements
-- Implement custom exception classes for different error types
-- Add logging for better debugging and monitoring
-- Provide user-friendly error messages in the web interface
-
-## API Integration
-
-The project uses Google's Generative AI (Gemini) for content generation. The API is configured in the `configure_gemini_api()` function.
-
-### API Usage
-- Model: 'gemini-pro'
-- Configuration: Customizable max_output_tokens
-
-To modify API settings or switch to a different model, update the `generate_text()` function.
-
-## Performance Optimization
-
-The application uses ThreadPoolExecutor for parallel processing of content generation, improving overall performance.
-
-### Current Optimizations
-- Parallel content generation for different sections
-- Adjustable token limit based on desired document length
-
-### Potential Further Optimizations
-- Implement caching for frequently requested topics
-- Optimize API calls to reduce token usage
-- Consider asynchronous processing for very large documents
-
-## Security Considerations
-
-- API Key Protection: Currently, the API key is hardcoded in the `app.py` file. For production use, consider using environment variables or a secure key management system.
-- Input Validation: Implement thorough input validation to prevent potential security vulnerabilities.
-- HTTPS: When deploying, ensure the application is served over HTTPS to protect user data in transit.
-
-## Testing
-
-Currently, the project does not include automated tests. Consider adding the following types of tests:
-
-- Unit tests for individual functions (e.g., `generate_text()`, `create_content()`)
-- Integration tests for the complete document generation process
-- UI tests for the web interface
-
-Use a testing framework like pytest to implement and run these tests.
-
-## Deployment
-
-For deploying this application to a production environment:
-
-1. Choose a hosting platform (e.g., Heroku, AWS, Google Cloud)
-2. Set up environment variables for sensitive information (API keys)
-3. Configure a production-ready web server (e.g., Gunicorn)
-4. Set up proper logging and monitoring
-5. Ensure all security measures are in place (HTTPS, input validation, etc.)
+---
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are welcome! Here are several ways you can contribute:
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/AmazingFeature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-5. Push to the branch (`git push origin feature/AmazingFeature`)
-6. Open a Pull Request
+- **[Report Issues](https://github.com/yourusername/ai-document-generator/issues)**: Submit bugs found or log feature requests for the `ai-document-generator` project.
+- **[Submit Pull Requests](https://github.com/yourusername/ai-document-generator/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/yourusername/ai-document-generator/discussions)**: Share your insights, provide feedback, or ask questions.
 
-Please ensure your code adheres to the project's coding standards and includes appropriate tests.
+<details closed>
+<summary>Contributing Guidelines</summary>
 
-## Contact
+1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+   ```sh
+   git clone https://github.com/yourusername/ai-document-generator
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to GitHub**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+</details>
 
-For any queries, suggestions, or collaborations, please contact:
-
-Anand Satvik - anandsatvik373@gmail.com
-
-Project Link: [https://github.com/yourusername/ai-document-generator](https://github.com/yourusername/ai-document-generator)
+---
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is protected under the [MIT License](https://choosealicense.com/licenses/mit/). For more details, refer to the [LICENSE](https://github.com/yourusername/ai-document-generator/blob/main/LICENSE) file.
 
-## Acknowledgements
+---
 
-- [Google Generative AI](https://ai.google.dev/)
-- [Flask](https://flask.palletsprojects.com/)
-- [python-docx](https://python-docx.readthedocs.io/)
+## Acknowledgments
+
+- [Google Generative AI](https://ai.google.dev/) for providing the AI model
+- [Flask](https://flask.palletsprojects.com/) for the web framework
+- [python-docx](https://python-docx.readthedocs.io/) for Word document generation
+
 
 ## Future Improvements
 
@@ -215,8 +201,22 @@ This project is open source and available under the [MIT License](LICENSE).
 - Add support for different document formats (e.g., PDF, Markdown)
 - Integrate with cloud storage services for document management
 - Implement a caching mechanism to improve performance for repeated queries
-- Add a progress bar for document generation
-- Implement a feedback system for users to rate generated documents
-- Create an API endpoint for programmatic document generation
-- Develop a mobile-friendly version of the web interface
-- Implement multi-language support for document generation
+- Develop a RESTful API for programmatic document generation
+- Create a mobile application for on-the-go document creation
+- Implement multi-language support for global users
+- Add collaborative editing features for team projects
+- Integrate with popular productivity tools (e.g., Google Docs, Microsoft Office)
+- Implement advanced formatting options and templates
+
+## Contact
+
+For any questions, suggestions, or collaborations, please feel free to reach out:
+
+- **Project Maintainer:** Anand Satvik
+- **Email:** anandsatvik373@gmail.com
+- **GitHub:** [@yourusername](https://github.com/satvikndxd)
+- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/satvik-anand-19019a283/)
+---
+````
+
+This reformatted README.md follows the structure and style of the example you provided. It includes a centered logo (using a placeholder document icon), badges, and a more visually appealing layout. Remember to replace "yourusername" with your actual GitHub username and update any specific details or links as needed.
