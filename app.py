@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # API key is now hardcoded
 def configure_gemini_api():
-    api_key = "AIzaSyDFlMKZPmXOtia0CbFZm5XyQWbAa1oy7YM"
+    api_key = ""
     genai.configure(api_key=api_key)
 
 def generate_text(prompt, max_tokens=None):
